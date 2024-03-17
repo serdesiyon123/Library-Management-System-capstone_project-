@@ -1,2 +1,263 @@
 {% extends 'ui/home.html' %}
+<<<<<<< HEAD
 
+=======
+{% load widget_tweaks %}
+{% block title %}
+    description
+{% endblock %}
+{% block content %}
+    <style>
+
+
+        p.description-text {
+            display: flex;
+            align-content: space-around;
+            line-height: 1.6;
+            color: #333;
+            width: 450px;
+            height: 330px;
+            scrollbar-gutter: auto;
+
+        }
+
+        img.book-image {
+            margin-top: 55px;
+            width: 4000px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1.book-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+
+        }
+
+        .book-cover {
+            flex-basis: 40%;
+            padding: 20px;
+            margin-right: 20px;
+        }
+
+
+        .book-info {
+            flex-basis: 60%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+
+        .buy-button {
+            display: block;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin-top: 40px;
+            cursor: pointer;
+        }
+
+        .buy-button:hover {
+            background-color: #1771C6;
+        }
+
+        .rating {
+            display: block;
+            margin-right: 20px;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            width: 100%;
+            text-align: left;
+
+        }
+
+       .rating > span {
+        display: inline-block;
+        position: relative;
+        color: orange; /* Change the color to orange */
+        font-size: 50px; /* Increase the font size */
+        width: 50px; /* Increase the width */
+    }
+
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+        cursor: pointer;
+        color: orange; /* Change the hover color to orange */
+        -webkit-animation: mymove 2s;
+        animation: mymove 2s;
+        animation-direction: normal;
+        transform: scale(1.2);
+    }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes mymove {
+            from {
+                color: #94e8ff;
+            }
+            to {
+                color: #09c;
+            }
+        }
+
+
+.reviews h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+
+
+.top-review {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+     font-family: sans-serif;
+width: 900px;
+    height: 200px;
+    margin-right: 230px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-header {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.user_review {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+ .user_review {
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin: 10px 0;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+        font-size: 1.1em;
+        letter-spacing: 0.05em;
+        word-spacing: 0.1em;
+        text-align: justify;
+    }
+
+    .user_review h5 {
+        font-size: 1.2em;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .user_review p {
+        color: #666;
+    }
+
+    .user_review h6 {
+        font-size: 0.9em;
+        color: #999;
+        margin-top: 30px;
+
+    }
+
+    .user_review strong {
+        color: #2196F3;
+    }
+.verified{
+    margin: 0;
+}
+
+    </style>
+    {% if messages %}
+<script>
+    {% for message in messages %}
+    alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %}
+<form method="get"> {% csrf_token %}
+
+    <div class="container ">
+        <img src="{{ book.poster.url }}" alt="Book Cover" class="book-cover book-image">
+        <div class="book-info">
+            <h1 class="book-title">{{ book.name }}</h1>
+            <p class="author">By: {{ book.author }}</p>
+            <p class="description-text"> {{ book.description }}
+            </p>
+         {% if user.is_authenticated  and book.id  not in taken %}       <a href="{% url 'borrow' book.id %}" class="buy-button">Borrow</a>{% endif %}
+</form>{% if user.is_authenticated and user_borrowed %}
+            <form method="post">{% csrf_token %}
+    <div class="rating">
+          {% for star in "12345" %}
+            <input type="radio" id="star{{forloop.counter}}" name="rating" value="{{forloop.counter}}" {% if forloop.counter == review.rating %} checked {% endif %}>
+            <label style="color: orange; width: 10px; height:12px; " for="star{{forloop.counter}}" title="{{forloop.counter}} stars">&#9733;</label>
+        {% endfor %}
+
+
+    </div>
+            <label style="display: block" >Write you reviews here please</label>
+                 {{ review.review }}
+            <button type="submit">Submit Review</button>
+</form>
+            {% endif %}
+
+
+    </div>
+        </div>
+    </div>
+
+<div class="top-review">
+        <header>
+            <h1 class="review-header">Top Reviews</h1>
+        </header>
+    {% for user_review in user_reviews %}
+        {% if book == user_review.book %}
+        <div class="user_review">
+            <h5><i>A Review by {{ user_review.user }}</i> </h5>
+
+            <p >{{ user_review.review }}</p>
+            <h6> Reviewed in {{ user_review.review_date }}</h6>
+            <p class="verified"><strong>Verified Review</strong></p>
+        </div>
+        {% endif %}
+{% endfor %}
+
+{% endblock %}
+>>>>>>> 70aef5ed2295c57f818602bc7e5fed927eb3a3e6
