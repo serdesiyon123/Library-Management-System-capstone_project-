@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lms_project',
         'USER': 'postgres',
-        'PASSWORD': 'S3rv3post',
+        'PASSWORD': 'your password',
         'HOST': 'localhost',
         'PORT': '5432'
     }
