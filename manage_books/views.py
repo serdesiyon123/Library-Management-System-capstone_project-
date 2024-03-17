@@ -172,6 +172,7 @@ def return_book(request, book_id):
        book.delete()
        return redirect('status')
 
+
 def description(request,id):
     if request.method == 'GET':
         review = ReviewRegister()
